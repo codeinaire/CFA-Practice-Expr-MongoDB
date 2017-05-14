@@ -1,14 +1,36 @@
 var express = require('express');
+
 var path = require('path');
+
 var favicon = require('serve-favicon');
+
 var logger = require('morgan');
+
 var cookieParser = require('cookie-parser');
+
 var bodyParser = require('body-parser');
+// include mongoose module
+const mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+// NOTE
+// DB CONNECTION from model
+  // so other model can connect to db.
+  // open connection to the local mongo db
+  mongoose.connect('mongodb://localhost/books');
+
+  // create a var to test db connection can also be:
+  // var db = mongoose.connection;
+  const { connection: db } = mongoose;
+  db.on('error', console.error.bind(console, 'connection error:'));
+  db.once('open', () => {
+    console.log('Connected to the books database');
+  });
+//
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

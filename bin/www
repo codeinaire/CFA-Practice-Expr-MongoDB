@@ -1,5 +1,13 @@
 #!/usr/bin/env node
 
+// this is the first file the application looks at which is in
+// the package.json file here: "start": "nodemon ./bin/www"
+// when $ yarn start it will look at the package file for the scripts
+// command 'start' and start nodemon which goes into ./bin/www - this file.
+// in this file are the methods to start the server.
+// The stuff in the file that creates the server can be put into
+// a different folder called server.
+
 /**
  * Module dependencies.
  */

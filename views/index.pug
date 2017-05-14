@@ -3,3 +3,14 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  ul
+    h2 Name & Description
+    each val in books
+      li= val.name + ': ' + val.description
+  p= books
+    form(action="/" method="POST")
+      label(for="name") Name
+      input(type="text" name="name")
+      label(for="description") Description
+      textarea(name="description")
+      input(type="submit" value="save" class="button")

@@ -10,18 +10,6 @@ const { Schema } = mongoose;
 
 mongoose.Promise = global.Promise;
 
-
-// open connection to the local mongo db
-mongoose.connect('mongodb://localhost/books');
-
-// create a var to test db connection can also be:
-// var db = mongoose.connection;
-const { connection: db } = mongoose;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-  console.log('Connected to the books database');
-});
-
 // schema for the db
 const bookSchema = new Schema({
   name: {
