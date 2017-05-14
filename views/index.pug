@@ -8,7 +8,8 @@ block content
     h2 Name & Description
     each val in books
       li= val.name + ': ' + val.description
-      a(href="/book/" + val._id + "/edit") Edit Book
+      a(href="/book/" + val._id + "/edit") Edit Book &nbsp
+      a(href="/book/" + val._id) Delete Book
   p= books
     form(action="/" method="POST")
       label(for="name") Name

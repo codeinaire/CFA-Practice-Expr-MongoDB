@@ -16,4 +16,18 @@ router.get('/book/:id/edit', bookController.editBook);
 
 router.post('/book/:id/edit', bookController.updateBook);
 
+router.get('/book/:id', bookController.deleteBook);
+
+// API routes
+
+router.get('/api/v1/books', bookController.apiGetBooks);
+
+router.post('/api/v1/books', bookController.apiCreateBook);
+
+router.get('/api/v1/books/:book_id', bookController.apiGetBook);
+
+router.put('/api/v1/books/:book_id', bookController.apiUpdateBook);
+
+router.delete('/api/v1/books/:book_id', bookController.apiDeleteBook);
+
 module.exports = router;
