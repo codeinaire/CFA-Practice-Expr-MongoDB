@@ -1,21 +1,29 @@
-var express = require('express');
+const express = require('express');
 
-var path = require('path');
+const path = require('path');
 
-var favicon = require('serve-favicon');
+const favicon = require('serve-favicon');
 
-var logger = require('morgan');
+const logger = require('morgan');
 
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 // include mongoose module
 const mongoose = require('mongoose');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+// sign with default (HMAC SHA256)
+var jwt = require('jsonwebtoken');
+var token = jwt.sign({ testing: 'testing' }, 'secret');
+// secret is used to encrypt anything in the app and is usually in the process.env.var file
 
-var app = express();
+// ROUTES
+const index = require('./routes/index');
+const users = require('./routes/users');
+const books = require('./routes/api/v1/books');
+const apiAuth = require('./middleware/apiAuth');
+
+const app = express();
 
 // NOTE
 // DB CONNECTION from model
@@ -46,6 +54,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/api/v1/*', apiAuth);
+app.use('/api/v1/books', books);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
