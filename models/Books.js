@@ -8,7 +8,7 @@ const slug = require('slug');
 // var Schema = mongoose.Schema;
 const { Schema } = mongoose;
 
-mongoose.Promise = global.Promise;
+// mongoose.Promise = global.Promise;
 
 // schema for the db
 const bookSchema = new Schema({

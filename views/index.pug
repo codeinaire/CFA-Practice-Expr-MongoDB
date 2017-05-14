@@ -3,10 +3,12 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  p= book
   ul
     h2 Name & Description
     each val in books
       li= val.name + ': ' + val.description
+      a(href="/book/" + val._id + "/edit") Edit Book
   p= books
     form(action="/" method="POST")
       label(for="name") Name

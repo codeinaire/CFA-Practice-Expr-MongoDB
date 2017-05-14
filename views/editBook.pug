@@ -1,0 +1,6 @@
+form(action="/book/" + book._id + "/edit" method="POST")
+  label(for="name") Name
+  input(type="text" name="name" value=book.name)
+  label(for="description") Description
+  textarea(name="description" value=book.description)
+  input(type="submit" value="save" class="button")

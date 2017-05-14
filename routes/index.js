@@ -12,4 +12,8 @@ router.get('/', bookController.getBooks);
 
 router.post('/', bookController.createBook);
 
+router.get('/book/:id/edit', bookController.editBook);
+
+router.post('/book/:id/edit', bookController.updateBook);
+
 module.exports = router;
