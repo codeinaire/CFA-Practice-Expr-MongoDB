@@ -12,6 +12,8 @@ const bodyParser = require('body-parser');
 // include mongoose module
 const mongoose = require('mongoose');
 
+require('dotenv').config({ path: 'variables.env' });
+
 // sign with default (HMAC SHA256)
 var jwt = require('jsonwebtoken');
 var token = jwt.sign({ testing: 'testing' }, 'secret');
@@ -29,7 +31,9 @@ const app = express();
 // DB CONNECTION from model
   // so other model can connect to db.
   // open connection to the local mongo db
-  mongoose.connect('mongodb://localhost/books');
+  // mongoose.connect('mongodb://localhost/books');
+  // connection via heroku deployment
+mongoose.connect(process.env.DATABASE);
 
   // create a var to test db connection can also be:
   // var db = mongoose.connection;
