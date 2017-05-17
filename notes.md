@@ -1,3 +1,31 @@
+## TESTING
+
+mocha provides the environment in which to test giving us tools such as before, after, etch and it's asynch
+
+chai gives us the syntax to write like we'd write in factories such as expect, should, etc this is called the assertion library.
+
+## DEPLOYING TO HEROKU with mlab
+
+Change nodemon to node or put in a new script for development and deployed starting.
+
+Create a new database on mlab and then create a user for that database with a username and password. Put this: `mongodb://<dbuser>:<dbpassword>@ds143071.mlab.com:43071/pract_book_db` into a `.env` file as `DATABASE=` or whatever I want to name it. Ofcourse replace the <dbuser>:<dbpassword> with my the un and pw for the database.
+
+In the app.js or start.js file make sure I require this:
+`require('dotenv').config({ path: '<name of env file>' });` and dotenv is a module that needs to be installed.
+
+put this:
+`mongoose.connect(process.<name of env var file>.< name of database in env var>);`
+
+This will work on the local development but will not yet work on the heroku deployment.
+
+But first we push to git and create a heroku app with
+`$ heroku create <name of app>`
+`$ git push heroku master`
+
+Once it has been deployed to heroku we can go into the settings and change the config vars to be the same as in the `.env` file.
+
+Restart the dynamos and this should work.
+
 ## API keys
 instead of using bash profile we can create a env.var profile in the root and use that instead. We can put that in our gitignore file to make sure no one uses it.
 such as 'process.env.API_KEY' - this is used if we just want to hardcode it while we are getting it up and running.
