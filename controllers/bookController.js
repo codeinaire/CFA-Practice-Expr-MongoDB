@@ -21,20 +21,21 @@ exports.getBooks = (req, res) => {
 };
 
 exports.createBook = (req, res) => {
-  var newBook = new Book(req.body);
-	//Save it into the DB.
-	newBook.save((err,book) => {
-		if(err) {
-			res.send(err);
-		}
-		else { //If no errors, send it back to the client
-			res.json({message: "Book successfully added!", book });
-		}
+//   var newBook = new Book(req.body);
+// 	//Save it into the DB.
+// 	newBook.save((err,book) => {
+// 		if(err) {
+// 			res.send(err);
+// 		}
+// 		else { //If no errors, send it back to the client
+// 			res.json({message: "Book successfully added!", book });
+// 		}
+// });
+  const book = new Book(req.body);
+  book.save()
+    .then(() => {
+      res.redirect('/')
 });
-  // const book = new Book(req.body);
-  // book.save()
-  //   .then(res.redirect('/')
-  // );
 };
 
 exports.editBook = (req, res) => {
