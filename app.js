@@ -12,12 +12,16 @@ const bodyParser = require('body-parser');
 // include mongoose module
 const mongoose = require('mongoose');
 
+const jwt = require('jsonwebtoken');
+
 require('dotenv').config({ path: 'variables.env' });
 
 // sign with default (HMAC SHA256)
-var jwt = require('jsonwebtoken');
-var token = jwt.sign({ testing: 'testing' }, 'secret');
-// secret is used to encrypt anything in the app and is usually in the process.env.var file
+// var jwt = require('jsonwebtoken');
+// var token = jwt.sign({ testing: 'testing' }, 'secret');
+// // secret is used to encrypt anything in the app and is usually in the process.env.var fill
+var token = jwt.sign({ email: 'john@john.com' }, 'secretcode');
+console.log(token)
 
 // ROUTES
 const index = require('./routes/index');
@@ -61,11 +65,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api*', apiAuth);
 app.use('/', index);
+app.use('/api', books);
 app.use('/users', users);
-app.use('/api/*', apiAuth);
-// app.use('/api/v1/*', apiAuth);
-// app.use('/api/v1/books', books);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

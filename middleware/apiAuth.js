@@ -1,4 +1,5 @@
 const express = require('express');
+var jwt = require('jsonwebtoken');
 
 const apiAuth = (req, res, next) => {
   // NOTE
@@ -8,7 +9,6 @@ const apiAuth = (req, res, next) => {
   //   { key: 'random number' }
   //   { key: 'random number' }
   // ]
-
   console.log("Authenticating api request");
 
   // this will handle key in body or query or headers with the key being x-access-token and the value being 1234. This makes it safer than putting it into the url.
@@ -26,6 +26,14 @@ const apiAuth = (req, res, next) => {
   //   found = true;
   // }
 
+
+  var decoded = jwt.verify(key, 'secretcode');
+  console.log(decoded.email)
+  let found = false;
+  if (decoded.email === 'john@john.com') {
+    found = true;
+  };
+
   // NOTE
   // KEYS to find
   // this will check to see if any of the keys entered
@@ -36,7 +44,7 @@ const apiAuth = (req, res, next) => {
 
   // const key = req.query.key;
   // if(found)
-  if (key === "1234"){
+  if (found) {
     next();
   } else {
     res.status(401)
@@ -44,7 +52,7 @@ const apiAuth = (req, res, next) => {
         success: false,
         message: 'Not Authorised',
       });
-    }
+  }
 };
 
 module.exports = apiAuth;

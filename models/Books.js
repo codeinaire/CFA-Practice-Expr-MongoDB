@@ -17,6 +17,11 @@ const bookSchema = new Schema({
     trim: true,
     required: 'Please enter book name!',
   },
+  author: {
+    type: String,
+    trim: true,
+    required: 'Please enter author name!',
+  },
   description: {
     type: String,
     trim: true,
