@@ -1,6 +1,6 @@
 const express = require('express');
 
-const authApi = (req, res, next) => {
+const apiAuth = (req, res, next) => {
   // NOTE
   // KEYS for validation
   // this contains a bunch of valid keys, that can be put into another file or maybe in an env.var??
@@ -47,4 +47,4 @@ const authApi = (req, res, next) => {
     }
 };
 
-module.exports = authApi;
+module.exports = apiAuth;

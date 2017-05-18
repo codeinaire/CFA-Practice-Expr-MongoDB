@@ -27,13 +27,18 @@ const apiAuth = require('./middleware/apiAuth');
 
 const app = express();
 
+// if(config.util.getEnv('NODE_ENV') !== 'test') {
+// 	//use morgan to log at command line
+// 	app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
+// }
+
 // NOTE
 // DB CONNECTION from model
   // so other model can connect to db.
   // open connection to the local mongo db
-  // mongoose.connect('mongodb://localhost/books');
+  mongoose.connect('mongodb://localhost/books');
   // connection via heroku deployment
-mongoose.connect(process.env.DATABASE);
+// mongoose.connect(process.env.DBDEV);
 
   // create a var to test db connection can also be:
   // var db = mongoose.connection;
@@ -58,8 +63,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/api/v1/*', apiAuth);
-app.use('/api/v1/books', books);
+app.use('/api/*', apiAuth);
+// app.use('/api/v1/*', apiAuth);
+// app.use('/api/v1/books', books);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

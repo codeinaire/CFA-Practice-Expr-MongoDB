@@ -2,6 +2,13 @@ const mongoose = require('mongoose');
 const Book = require('../models/Books');
 
 exports.getBooks = (req, res) => {
+
+//   let query = Book.find({});
+// 	query.exec((err, books) => {
+// 		if(err) res.send(err);
+// 		//If no errors, send them back to the client
+// 		res.json(books);
+// });
   Book.find()
     .then(books => {
       console.log('books = ', books); // this shows the db is empty
@@ -10,14 +17,24 @@ exports.getBooks = (req, res) => {
         books: books
       });
     });
-  // console.log(books); - this was causing the program to crash
+  console.log(books); - this was causing the program to crash
 };
 
 exports.createBook = (req, res) => {
-  const book = new Book(req.body);
-  book.save()
-    .then(res.redirect('/')
-  );
+  var newBook = new Book(req.body);
+	//Save it into the DB.
+	newBook.save((err,book) => {
+		if(err) {
+			res.send(err);
+		}
+		else { //If no errors, send it back to the client
+			res.json({message: "Book successfully added!", book });
+		}
+});
+  // const book = new Book(req.body);
+  // book.save()
+  //   .then(res.redirect('/')
+  // );
 };
 
 exports.editBook = (req, res) => {
