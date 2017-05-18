@@ -6,14 +6,14 @@ const router = express.Router();
 
 // API routes
 
-router.get('api/', bookController.apiGetBooks);
+router.get('/api/', bookController.apiGetBooks);
 
-router.post('api/', bookController.apiCreateBook);
+router.post('/api/', bookController.apiCreateBook);
 
-router.get('api/:book_id', bookController.apiGetBook);
+router.get('/api/:book_id', bookController.apiGetBook);
 
-router.put('api/:book_id', bookController.apiUpdateBook);
+router.put('/api/:book_id', bookController.apiUpdateBook);
 
-router.delete('api/:book_id', bookController.apiDeleteBook);
+router.delete('/api/:book_id', bookController.apiDeleteBook);
 
 module.exports = router;

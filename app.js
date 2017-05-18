@@ -36,9 +36,9 @@ const app = express();
 // DB CONNECTION from model
   // so other model can connect to db.
   // open connection to the local mongo db
-  mongoose.connect('mongodb://localhost/books');
+  // mongoose.connect('mongodb://localhost/books');
   // connection via heroku deployment
-// mongoose.connect(process.env.DBDEV);
+mongoose.connect(process.env.DBDEV);
 
   // create a var to test db connection can also be:
   // var db = mongoose.connection;

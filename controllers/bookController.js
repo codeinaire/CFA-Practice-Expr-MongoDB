@@ -17,7 +17,7 @@ exports.getBooks = (req, res) => {
         books: books
       });
     });
-  console.log(books); - this was causing the program to crash
+  // console.log(books); - this was causing the program to crash
 };
 
 exports.createBook = (req, res) => {
