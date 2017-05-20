@@ -13,7 +13,7 @@ router.post('/', bookController.createBook);
 
 router.get('/book/:id/edit', bookController.editBook);
 
-router.post('/book/:id/edit', bookController.updateBook);
+router.post('/book/:id', bookController.updateBook);
 
 router.get('/book/:id', bookController.deleteBook);
 

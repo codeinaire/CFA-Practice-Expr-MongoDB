@@ -12,7 +12,7 @@ const { Schema } = mongoose;
 
 // schema for the db
 const bookSchema = new Schema({
-  name: {
+  title: {
     type: String,
     trim: true,
     required: 'Please enter book name!',
@@ -20,7 +20,7 @@ const bookSchema = new Schema({
   author: {
     type: String,
     trim: true,
-    required: 'Please enter author name!',
+    // required: 'Please enter author name!',
   },
   description: {
     type: String,

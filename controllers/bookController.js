@@ -9,6 +9,7 @@ exports.getBooks = (req, res) => {
 // 		//If no errors, send them back to the client
 // 		res.json(books);
 // });
+  console.log('Not-api');
   Book.find()
     .then(books => {
       console.log('books = ', books); // this shows the db is empty
@@ -21,21 +22,23 @@ exports.getBooks = (req, res) => {
 };
 
 exports.createBook = (req, res) => {
-//   var newBook = new Book(req.body);
-// 	//Save it into the DB.
-// 	newBook.save((err,book) => {
-// 		if(err) {
-// 			res.send(err);
-// 		}
-// 		else { //If no errors, send it back to the client
-// 			res.json({message: "Book successfully added!", book });
-// 		}
-// });
-  const book = new Book(req.body);
-  book.save()
-    .then(() => {
-      res.redirect('/')
-});
+  console.log(req.body);
+  const newBook = new Book(req.body);
+  // Save it into the DB.
+  newBook.save((err, book) => {
+    if (err) {
+      console.log(err);
+      res.send(err);
+    } else { // If no errors, send it back to the client
+      res.redirect('/');
+    }
+  });
+//   const book = new Book(req.body);
+//   console.log("in new book");
+//   book.save()
+//     .then(
+//       res.redirect('/')
+//     );
 };
 
 exports.editBook = (req, res) => {
@@ -46,7 +49,9 @@ exports.editBook = (req, res) => {
 };
 
 exports.updateBook = (req, res) => {
-  Book.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+  console.log('put request');
+  console.log(res.body);
+  Book.findByIdAndUpdate({ _id: req.params.id }, req.body, { new: true })
   .then(
     res.redirect('/')
   );
@@ -73,13 +78,14 @@ exports.apiGetBooks = (req, res) => {
 };
 
 exports.apiCreateBook = (req, res) => {
-  const book = Book(req.query);
+  const book = Book(req.headers || req.query);
   book.save()
     .then(() => {
       res.json(book)
     })
 };
 
+// this works when I put :book_id before the JWT
 exports.apiGetBook = (req, res) => {
   Book.findById(req.params.book_id)
     .then(book => {
@@ -88,9 +94,10 @@ exports.apiGetBook = (req, res) => {
 };
 
 exports.apiUpdateBook = (req, res) => {
-  Book.findByIdAndUpdate(req.params.book_id, req.query)
+  let newValues = req.query || req.headers;
+  Book.findByIdAndUpdate(req.params.book_id, newValues)
     .then(book => {
-      res.json(book);
+      res.json('successfully updated!');
     });
 };
 
