@@ -13,6 +13,7 @@ const apiAuth = (req, res, next) => {
 
   // this will handle key in body or query or headers with the key being x-access-token and the value being 1234. This makes it safer than putting it into the url.
   const key = req.body.key || req.query.key || req.headers['x-access-token'];
+  console.log('key:', key);
 
   // NOTE
   // JSON WEB TOKENS

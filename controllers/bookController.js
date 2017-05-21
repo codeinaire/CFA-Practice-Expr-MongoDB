@@ -65,24 +65,28 @@ exports.deleteBook = (req, res) => {
         res.redirect('/')
       );
     });
-  };
+};
 
 
 // APIs
 
 exports.apiGetBooks = (req, res) => {
   Book.find()
-    .then(books => {
-      res.json(books)
+    .then((books) => {
+      res.json(books);
     });
 };
 
 exports.apiCreateBook = (req, res) => {
-  const book = Book(req.headers || req.query);
+  let book = new Book();
+  const bookQuery = req.query
+  book.title = bookQuery.title;
+  book.author = bookQuery.author;
+  book.description = bookQuery.description;
   book.save()
     .then(() => {
-      res.json(book)
-    })
+      res.json('Book successfully added');
+    });
 };
 
 // this works when I put :book_id before the JWT
@@ -94,11 +98,12 @@ exports.apiGetBook = (req, res) => {
 };
 
 exports.apiUpdateBook = (req, res) => {
-  let newValues = req.query || req.headers;
-  Book.findByIdAndUpdate(req.params.book_id, newValues)
-    .then(book => {
-      res.json('successfully updated!');
-    });
+  Book.findOneAndUpdate({ _id: req.params.book_id }, req.query, {
+    new: true // returns new ingredient
+  })
+  .then(book => {
+    res.json(book)
+  });
 };
 
 exports.apiDeleteBook = (req, res) => {
